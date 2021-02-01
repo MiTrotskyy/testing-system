@@ -1,18 +1,30 @@
 package ru.spring.dao;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import ru.spring.domain.Question;
 import ru.spring.domain.QuestionCollection;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
+@Component
 public class QuestionsDaoSimple implements QuestionsDao{
-    private final String filePath;
 
-    public QuestionsDaoSimple(String filePath) {
+    private final String filePath;
+    private final QuestionCollection questionCollection;
+
+    @Override
+    public QuestionCollection getQuestions() {
+        return questionCollection;
+    }
+
+    public QuestionsDaoSimple(@Value("/questions.csv") String filePath) {
         this.filePath = filePath;
+        this.questionCollection = getQuestionsFromFile();
     }
 
     private Scanner getScanner(String path) {
@@ -20,16 +32,22 @@ public class QuestionsDaoSimple implements QuestionsDao{
         return new Scanner(inputStream);
     }
 
-    @Override
-    public QuestionCollection getQuestions() {
+    private Question getQuestionFromString(String string) {
+        ArrayList<String> resultList = new ArrayList<>(Arrays.asList(string.split(";")));
+        String question = resultList.remove(0);
+        String rightAnswer = resultList.get(0);
+        Collections.shuffle(resultList);
+        return new Question(question, rightAnswer, resultList);
+    }
+
+    public QuestionCollection getQuestionsFromFile() {
         QuestionCollection collection = new QuestionCollection();
         Scanner in = getScanner(filePath);
         while (in.hasNext()){
             String input = in.nextLine();
-            ArrayList<String> resultList = new ArrayList<>(Arrays.asList(input.split(";")));
-            String question = resultList.remove(0);
-            collection.add(new Question(question, resultList));
+            collection.add(getQuestionFromString(input));
         }
         return collection;
     }
+
 }

@@ -4,6 +4,6 @@ import ru.spring.domain.QuestionCollection;
 
 public interface QuestionsDao {
 
-    QuestionCollection getQuestions();
+     QuestionCollection getQuestions();
 
 }

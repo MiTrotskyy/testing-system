@@ -7,8 +7,12 @@ public class Question {
     private ArrayList<String> answers;
     private String rightAnswer;
 
+    public String getRightAnswer() {
+        return rightAnswer;
+    }
 
-    public Question(String question, ArrayList<String> answers) {
+    public Question(String question, String rightAnswer, ArrayList<String> answers) {
+        this.rightAnswer = rightAnswer;
         this.question = question;
         this.answers = answers;
     }

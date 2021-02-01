@@ -14,6 +14,10 @@ public class QuestionCollection {
         return questions.get(i).toString();
     }
 
+    public ArrayList<Question> getQuestions() {
+        return questions;
+    }
+
     public void add(Question question) {
         questions.add(question);
     }
