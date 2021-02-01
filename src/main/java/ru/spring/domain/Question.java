@@ -11,6 +11,10 @@ public class Question {
         return rightAnswer;
     }
 
+    public boolean checkAnswer(String answer) {
+        return (rightAnswer.equals(answer));
+    }
+
     public Question(String question, String rightAnswer, ArrayList<String> answers) {
         this.rightAnswer = rightAnswer;
         this.question = question;

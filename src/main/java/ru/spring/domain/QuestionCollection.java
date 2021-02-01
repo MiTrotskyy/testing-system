@@ -10,8 +10,8 @@ public class QuestionCollection {
         this.questions = new ArrayList<>();
     }
 
-    public String getByNumber(int i) {
-        return questions.get(i).toString();
+    public Question getByNumber(int i) {
+        return questions.get(i);
     }
 
     public ArrayList<Question> getQuestions() {

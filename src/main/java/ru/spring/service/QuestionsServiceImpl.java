@@ -2,6 +2,7 @@ package ru.spring.service;
 
 import org.springframework.stereotype.Service;
 import ru.spring.dao.QuestionsDao;
+import ru.spring.domain.Question;
 import ru.spring.domain.QuestionCollection;
 
 @Service
@@ -15,5 +16,9 @@ public class QuestionsServiceImpl implements QuestionsService {
     @Override
     public QuestionCollection getCollection() {
         return dao.getQuestions();
+    }
+
+    public Question getQuestionByNumber(int i) {
+        return dao.getQuestions().getByNumber(i);
     }
 }
